@@ -1,6 +1,7 @@
 from django.urls import path
-from places.views import main_page_view
+from places.views import main_page_view, place_page_view
 
 urlpatterns = [
     path('', main_page_view, name='main'),
+    path('places/<int:id>/', place_page_view, name='places')
 ]
