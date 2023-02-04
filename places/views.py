@@ -1,7 +1,8 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from django.http.response import HttpResponse
+from django.urls import reverse, path
+from django.utils.safestring import mark_safe
 
 from places.models import Place
 
@@ -21,7 +22,7 @@ def main_page_view(request):
             "properties": {
                 "title": place.title,
                 "placeId": place.pk,
-                "detailsUrl": '',
+                "detailsUrl": reverse('places', kwargs={'id': place.id}),
             }
         })
     context = {
@@ -44,6 +45,6 @@ def place_page_view(request, id):
             }
         }
     context = {
-        'json': json.dumps(place_detales, ensure_ascii=False, indent=4),
+        'json': mark_safe(json.dumps(place_detales, ensure_ascii=False, indent=4)),
     }
     return render(request, "places/place.html", context=context)
