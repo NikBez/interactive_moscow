@@ -11,21 +11,22 @@ https://docs.djangoproject.com/en/3.0/ref/settings/
 """
 
 import os
+from environs import Env
+
+env = Env()
+env.read_env()
 
 # Build paths inside the project like this: os.path.join(BASE_DIR, ...)
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
-
 
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/3.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = '43fe%vo_@36=i@!fbv4fuijg%m1*ofr7010f*m0-909$1oi-pe'
-
+SECRET_KEY = env('DJANGO_SECRET_KEY')
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
-
-ALLOWED_HOSTS = []
+DEBUG = env.bool('DJANGO_DEBUG', False)
+ALLOWED_HOSTS = env.list('DJANGO_ALLOWED_HOSTS', [])
 
 
 # Application definition
@@ -129,31 +130,3 @@ STATICFILES_DIRS = [
 ]
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
-
-# TINYMCE_JS_URL = 'http://debug.example.org/tiny_mce/tiny_mce_src.js'
-# TINYMCE_DEFAULT_CONFIG = {
-#     "height": "320px",
-#     "width": "960px",
-#     "menubar": "file edit view insert format tools table help",
-#     "plugins": "advlist autolink lists link image charmap print preview anchor searchreplace visualblocks code "
-#     "fullscreen insertdatetime media table paste code help wordcount spellchecker",
-#     "toolbar": "undo redo | bold italic underline strikethrough | fontselect fontsizeselect formatselect | alignleft "
-#     "aligncenter alignright alignjustify | outdent indent |  numlist bullist checklist | forecolor "
-#     "backcolor casechange permanentpen formatpainter removeformat | pagebreak | charmap emoticons | "
-#     "fullscreen  preview save print | insertfile image media pageembed template link anchor codesample | "
-#     "a11ycheck ltr rtl | showcomments addcomment code",
-#     "custom_undo_redo_levels": 10,
-#     "language": "es_ES",  # To force a specific language instead of the Django current language.
-# }
-# TINYMCE_SPELLCHECKER = True
-# TINYMCE_COMPRESSOR = True
-# TINYMCE_EXTRA_MEDIA = {
-#     'css': {
-#         'all': [
-#             ...
-#         ],
-#     },
-#     'js': [
-#         ...
-#     ],
-# }

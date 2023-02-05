@@ -8,6 +8,7 @@ django = "==3"
 pillow = "*"
 django-admin-sortable2 = "*"
 django-tinymce = "*"
+environs = "*"
 
 [dev-packages]
 
