@@ -5,10 +5,10 @@ name = "pypi"
 
 [packages]
 django = "==3"
-pillow = "*"
-django-admin-sortable2 = "*"
-django-tinymce = "*"
-environs = "*"
+pillow = "==9.4.0"
+django-admin-sortable2 = "==1.0.4"
+django-tinymce = "==3.5.0"
+environs = "==9.5.0"
 
 [dev-packages]
 
