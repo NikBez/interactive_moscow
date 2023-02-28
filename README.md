@@ -19,6 +19,10 @@ DJANGO_DEBUG=[DEBUG MODE]
 
 Для загрузки
 
+## Сайт на pythonanywhere
+
+http://nikitabit.pythonanywhere.com/
+
 
 
 
