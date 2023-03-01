@@ -1,8 +1,8 @@
 import sys
+import requests
+
 from django.core.files.base import ContentFile
 from django.core.management import BaseCommand
-import requests
-import logging
 
 from places.models import Place, Image
 
@@ -34,9 +34,9 @@ class Command(BaseCommand):
                 img_name = url.split('/')[-1]
                 response = requests.get(url)
                 response.raise_for_status()
-                curImage = Image()
-                curImage.image.save(img_name, ContentFile(response.content))
-                place.images.add(curImage)
+                cur_image = Image()
+                cur_image.image.save(img_name, ContentFile(response.content))
+                place.images.add(cur_image)
         else:
             print('This place is already exist.')
 

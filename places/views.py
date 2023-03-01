@@ -1,7 +1,7 @@
 import json
 
 from django.shortcuts import render, get_object_or_404
-from django.urls import reverse, path
+from django.urls import reverse
 from django.utils.safestring import mark_safe
 
 from places.models import Place
