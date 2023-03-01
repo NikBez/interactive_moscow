@@ -31,6 +31,7 @@ def main_page_view(request):
 
     return render(request, "places/index.html", context=context)
 
+
 def place_page_view(request, id):
 
     place = get_object_or_404(Place, id=id)
@@ -45,6 +46,10 @@ def place_page_view(request, id):
             }
         }
     context = {
-        'json': mark_safe(json.dumps(place_detales, ensure_ascii=False, indent=4)),
+        'json': mark_safe(json.dumps(place_detales,
+                                     ensure_ascii=False,
+                                     indent=4
+                                     )
+                          ),
     }
     return render(request, "places/place.html", context=context)

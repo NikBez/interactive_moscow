@@ -40,13 +40,9 @@ class Command(BaseCommand):
         else:
             print('This place is already exist.')
 
-
     def add_arguments(self, parser):
         parser.add_argument(
             nargs='+',
             type=str,
             dest='args'
         )
-
-
-

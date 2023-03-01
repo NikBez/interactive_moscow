@@ -1,27 +1,28 @@
+from adminsortable2.admin import SortableInlineAdminMixin
+
 from django.contrib import admin
 from django.utils.html import format_html
-from adminsortable2.admin import SortableInlineAdminMixin
+
 from places.models import Place, Image
 
 
 class ImagesInline(SortableInlineAdminMixin, admin.TabularInline):
     model = Place.images.through
     fields = ['image', 'preview']
-    verbose_name = "Изображения"
+    verbose_name = "Изображение"
     verbose_name_plural = "Изображения"
     extra = 0
     readonly_fields = ('preview',)
 
     def preview(self, obj):
-
-            image = Image.objects.get(id=obj.image_id)
-            height, width = downscale_image(image.image.height, image.image.width)
-            return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-                url=image.image.url,
-                width=width,
-                height=height,
+        image = Image.objects.get(id=obj.image_id)
+        height, width = downscale_image(image.image.height, image.image.width)
+        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
+            url=image.image.url,
+            width=width,
+            height=height,
             )
-            )
+        )
 
 
 @admin.register(Place)
@@ -47,6 +48,7 @@ class ImageAdmin(admin.ModelAdmin):
             height=height,
         )
         )
+
 
 def downscale_image(heigth, width):
     prop = width/200

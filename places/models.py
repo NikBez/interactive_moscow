@@ -8,9 +8,15 @@ class Place(models.Model):
                                     verbose_name="Изображение",
                                     blank=True,
                                     related_name="places",
-                                    through='ImagesPlace')
-    short_description = models.CharField("Краткое описание", max_length=300, blank=True)
-    long_description = tinymce_models.HTMLField("Полное описание", blank=True)
+                                    through='ImagesPlace'
+                                    )
+    short_description = models.CharField("Краткое описание",
+                                         max_length=300,
+                                         blank=True
+                                         )
+    long_description = tinymce_models.HTMLField("Полное описание",
+                                                blank=True
+                                                )
     lng = models.FloatField('Долгота')
     lat = models.FloatField('Широта')
 
@@ -26,13 +32,13 @@ class Image(models.Model):
 
 
 class ImagesPlace(models.Model):
-    """This is a junction table model that also stores the images order for a place."""
+    """
+    This is a junction table model that also stores
+    the images order for a place.
+    """
     place = models.ForeignKey(Place, on_delete=models.CASCADE)
     image = models.ForeignKey(Image, models.CASCADE)
     images_order = models.PositiveIntegerField(default=0)
 
     class Meta:
         ordering = ['images_order']
-
-
-
