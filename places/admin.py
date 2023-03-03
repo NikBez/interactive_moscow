@@ -46,7 +46,6 @@ class ImageAdmin(admin.ModelAdmin):
         )
         )
 
-
 def downscale_image(heigth, width):
     prop = width/200
     return heigth/prop, 200
