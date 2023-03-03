@@ -7,7 +7,7 @@ from places.models import Place, Image
 
 
 class ImagesInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = Place.images.through
+    model = Image
     fields = ['image', 'preview']
     verbose_name = "Изображение"
     verbose_name_plural = "Изображения"
@@ -15,13 +15,12 @@ class ImagesInline(SortableInlineAdminMixin, admin.TabularInline):
     readonly_fields = ('preview',)
 
     def preview(self, obj):
-        image = Image.objects.get(id=obj.image_id)
-        height, width = downscale_image(image.image.height, image.image.width)
+        height, width = downscale_image(obj.image.height, obj.image.width)
         return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=image.image.url,
+            url=obj.image.url,
             width=width,
             height=height,
-            )
+        )
         )
 
 
@@ -36,9 +35,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
-    fields = ['preview']
     readonly_fields = ["preview"]
-    exclude = ['image']
 
     def preview(self, obj):
         height, width = downscale_image(obj.image.height, obj.image.width)

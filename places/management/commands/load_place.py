@@ -34,8 +34,9 @@ class Command(BaseCommand):
                 img_name = url.split('/')[-1]
                 response = requests.get(url)
                 response.raise_for_status()
-                cur_image = Image()
+                cur_image = Image(place=place)
                 cur_image.image.save(img_name, ContentFile(response.content))
+
                 place.images.add(cur_image)
         else:
             print('This place is already exist.')
