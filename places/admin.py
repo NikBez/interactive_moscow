@@ -35,6 +35,7 @@ class PlaceAdmin(admin.ModelAdmin):
 
 @admin.register(Image)
 class ImageAdmin(admin.ModelAdmin):
+    fields = ['image', 'place', 'preview']
     readonly_fields = ["preview"]
 
     def preview(self, obj):
