@@ -12,16 +12,15 @@ from django.db import migrations
 #         image.place = source_image.place
 #         image.save()
 
-
 def move_backward(apps, schema_editor):
     pass
+
 
 class Migration(migrations.Migration):
 
     dependencies = [
         ('places', '0005_auto_20230303_0249'),
     ]
-
     operations = [
         # migrations.RunPython(relocatePlaces, reverse_code=move_backward)
     ]

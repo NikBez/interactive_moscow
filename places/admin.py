@@ -1,52 +1,37 @@
 from adminsortable2.admin import SortableInlineAdminMixin
-
 from django.contrib import admin
 from django.utils.html import format_html
 
 from places.models import Place, Image
 
 
-class ImagesInline(SortableInlineAdminMixin, admin.TabularInline):
-    model = Image
-    fields = ['image', 'preview']
-    verbose_name = "Изображение"
-    verbose_name_plural = "Изображения"
-    extra = 0
-    readonly_fields = ('preview',)
+class PreviewMixin:
 
     def preview(self, obj):
-        height, width = downscale_image(obj.image.height, obj.image.width)
-        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=obj.image.url,
-            width=width,
-            height=height,
-        )
-        )
+        return format_html('<img src="{url}" style= "max-width: 200px; height: auto;" />',
+                           url=obj.image.url,
+                           width=200,
+                           height=200
+                           )
+
+
+class ImagesInline(SortableInlineAdminMixin, admin.TabularInline, PreviewMixin):
+    model = Image
+    fields = ['image', 'preview']
+    verbose_name = 'Изображение'
+    verbose_name_plural = 'Изображения'
+    extra = 0
+    readonly_fields = ['preview']
 
 
 @admin.register(Place)
 class PlaceAdmin(admin.ModelAdmin):
     list_display = ('title', 'lng', 'lat', 'short_description')
     fields = ('title', ('lng', 'lat'), 'short_description', 'long_description',)
-    inlines = [
-        ImagesInline,
-    ]
+    inlines = [ImagesInline]
 
 
 @admin.register(Image)
-class ImageAdmin(admin.ModelAdmin):
+class ImageAdmin(admin.ModelAdmin, PreviewMixin):
     fields = ['image', 'place', 'preview']
-    readonly_fields = ["preview"]
-
-    def preview(self, obj):
-        height, width = downscale_image(obj.image.height, obj.image.width)
-        return format_html('<img src="{url}" width="{width}" height={height} />'.format(
-            url=obj.image.url,
-            width=width,
-            height=height,
-        )
-        )
-
-def downscale_image(heigth, width):
-    prop = width/200
-    return heigth/prop, 200
+    readonly_fields = ['preview']

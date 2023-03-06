@@ -35,7 +35,7 @@ def view_main_page(request):
 
 def place_page_view(request, id):
     place = get_object_or_404(Place, id=id)
-    place_detales = {
+    place_details = {
         "title": place.title,
         "imgs": [img.image.url for img in place.images.all()],
         "description_short": place.short_description,
@@ -46,6 +46,6 @@ def place_page_view(request, id):
         },
     }
     return JsonResponse(
-        place_detales,
+        place_details,
         json_dumps_params={"ensure_ascii": False}
     )
