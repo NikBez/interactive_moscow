@@ -8,7 +8,7 @@ from places.models import Place, Image
 
 
 class Command(BaseCommand):
-    help = "Load places from json files"
+    help = 'Load places from json files'
 
     def handle(self, *args, **options):
         response = requests.get(options['url_to_json'])
@@ -17,8 +17,8 @@ class Command(BaseCommand):
         try:
             lng = float(response['coordinates']['lng'])
             lat = float(response['coordinates']['lat'])
-        except ValueError('Coordinates does not correct'):
-            sys.exit()
+        except ValueError:
+            raise SystemExit
 
         place, created = Place.objects.get_or_create(
             title=response['title'],
@@ -35,8 +35,8 @@ class Command(BaseCommand):
                 img_name = url.split('/')[-1]
                 response = requests.get(url)
                 response.raise_for_status()
-                cur_image = Image(place=place)
-                cur_image.image.save(img_name, ContentFile(response.content))
+                image = Image(place=place)
+                image.image.save(img_name, ContentFile(response.content))
         else:
             print('This place is already exist.')
 
