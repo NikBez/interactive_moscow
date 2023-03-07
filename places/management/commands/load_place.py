@@ -11,7 +11,6 @@ class Command(BaseCommand):
     help = "Load places from json files"
 
     def handle(self, *args, **options):
-
         response = requests.get(options['url_to_json'])
         response.raise_for_status()
         response = response.json()

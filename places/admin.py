@@ -7,12 +7,13 @@ from places.models import Place, Image
 
 class PreviewMixin:
 
-    def preview(self, obj):
-        return format_html('<img src="{url}" style= "max-width: 200px; height: auto;" />',
-                           url=obj.image.url,
-                           width=200,
-                           height=200
-                           )
+    def preview(self, img):
+        return format_html(
+            '<img src="{url}" style= "max-width: 200px; height: auto;" />',
+            url=img.image.url,
+            width=200,
+            height=200
+        )
 
 
 class ImagesInline(SortableInlineAdminMixin, admin.TabularInline, PreviewMixin):

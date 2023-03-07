@@ -28,7 +28,7 @@ class Image(models.Model):
         null=True,
         related_name='images'
     )
-    my_order = models.PositiveIntegerField(
+    order = models.PositiveIntegerField(
         db_index=True,
         default=0,
         blank=False,
@@ -36,7 +36,7 @@ class Image(models.Model):
     )
 
     class Meta:
-        ordering = ['my_order']
+        ordering = ['order']
 
     def __str__(self):
         return self.image.name

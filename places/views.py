@@ -19,7 +19,7 @@ def view_main_page(request):
                 "properties": {
                     "title": place.title,
                     "placeId": place.pk,
-                    "detailsUrl": reverse("places", kwargs={"id": place.id}),
+                    "detailsUrl": reverse("places", kwargs={"pk": place.pk}),
                 },
             }
         )
@@ -33,8 +33,8 @@ def view_main_page(request):
     return render(request, "places/index.html", context=context)
 
 
-def place_page_view(request, id):
-    place = get_object_or_404(Place, id=id)
+def place_page_view(request, pk):
+    place = get_object_or_404(Place, pk=pk)
     place_details = {
         "title": place.title,
         "imgs": [img.image.url for img in place.images.all()],
