@@ -14,11 +14,8 @@ class Command(BaseCommand):
         response = requests.get(options['url_to_json'])
         response.raise_for_status()
         response = response.json()
-        try:
-            lng = float(response['coordinates']['lng'])
-            lat = float(response['coordinates']['lat'])
-        except ValueError:
-            raise SystemExit
+        lng = float(response['coordinates']['lng'])
+        lat = float(response['coordinates']['lat'])
 
         place, created = Place.objects.get_or_create(
             title=response['title'],
